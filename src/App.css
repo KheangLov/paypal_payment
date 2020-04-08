@@ -1,3 +1,12 @@
+body {
+  background-color: #eaeaea;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
 .App {
   text-align: center;
 }
