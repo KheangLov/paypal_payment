@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { PayPalButton } from "react-paypal-button-v2";
 
 import logo from './logo.svg';
@@ -26,7 +27,7 @@ class App extends Component {
             amount="100"
             onSuccess={(details, data) => {
               alert("Transaction completed by " + details.payer.name.given_name);
-              return fetch("/paypal-transaction-complete", {
+              return axios("/paypal-transaction-complete", {
                 method: "post",
                 body: JSON.stringify({
                   orderID: data.orderID
