@@ -1,26 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { PayPalButton } from "react-paypal-button-v2";
+
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+          <PayPalButton
+            amount="100"
+            onSuccess={(details, data) => {
+              alert("Transaction completed by " + details.payer.name.given_name);
+              return fetch("/paypal-transaction-complete", {
+                method: "post",
+                body: JSON.stringify({
+                  orderID: data.orderID
+                })
+              });
+            }}
+          />
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
